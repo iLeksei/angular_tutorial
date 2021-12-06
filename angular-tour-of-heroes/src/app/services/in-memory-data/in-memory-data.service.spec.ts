@@ -12,5 +12,6 @@ describe('InMemoryDataService', () => {
 
   it('should be created', () => {
     expect(service).toBeTruthy();
+    expect(service.createDb()).toContain("heroes")
   });
 });
