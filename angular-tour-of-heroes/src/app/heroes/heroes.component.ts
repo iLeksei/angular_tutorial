@@ -20,6 +20,7 @@ export class HeroesComponent implements OnInit {
     this.getHeroes();
   }
 
+  //todo to remove dead method
   onSelect(hero?: Hero): void {
     this.messageService.add(`HeroesComponent: Selected hero id=${hero?.id}`);
     this.selectedHero = hero;
