@@ -20,11 +20,14 @@ export class HeroFormComponent implements OnInit, OnChanges {
 
   submitted: boolean = false;
 
+  @Input() timer = 0;
+
   onSubmit() { this.submitted = true; }
 
   constructor(private heroService: HeroService) { }
 
   ngOnInit(): void {
+    console.log("Init hero-form...");
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -40,6 +43,7 @@ export class HeroFormComponent implements OnInit, OnChanges {
     if (this.model.name && this.model.power && this.model.alterEgo) {
       const newHero = this.model;
       delete newHero.id;
+      // this.loggerService.info("Add new hero: " + JSON.stringify(newHero))
       this.heroService.addHero(newHero);
     }
     return;
