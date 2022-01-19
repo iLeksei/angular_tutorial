@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {AfterContentInit, Component, DoCheck, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
 import {Hero} from "../entities/Hero";
 import {HeroService} from "../services/hero/hero.service";
 
@@ -7,7 +7,7 @@ import {HeroService} from "../services/hero/hero.service";
   templateUrl: './hero-form.component.html',
   styleUrls: ['./hero-form.component.sass']
 })
-export class HeroFormComponent implements OnInit, OnChanges {
+export class HeroFormComponent implements OnInit, OnChanges, DoCheck, AfterContentInit, OnDestroy {
 
   powers: string[] = ['Really Smart', 'Super Flexible', 'Super Hot', 'Weather Changer'];
 
@@ -26,10 +26,29 @@ export class HeroFormComponent implements OnInit, OnChanges {
 
   constructor(private heroService: HeroService) { }
 
+  ngOnDestroy(): void {
+    console.log("hero-form was destroyed...");
+  }
+
+  ngDoCheck(): void {
+    console.log("Was called after onInit phase and after each changes at component...");
+  }
+
   ngOnInit(): void {
     console.log("Init hero-form...");
   }
 
+  /**
+   * Called once after the first ngDoCheck()
+   */
+  ngAfterContentInit() {
+    // contentChild is set after the content has been initialized
+    console.log('AfterContentInit');
+  }
+
+  /**
+   * will not be called, because it doesn't have @Input props
+   */
   ngOnChanges(changes: SimpleChanges): void {
     for (const propName in changes) {
       const chng = changes[propName];
